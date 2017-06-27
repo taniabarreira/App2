@@ -5,6 +5,9 @@
              BackgroundImage="drone_lander_back.jpg"
              x:Class="App2.MainPage">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem AutomationId="SignInLabel" Text="{Binding SignInLabel}" Command="{Binding SignInCommand}"/>
+    </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

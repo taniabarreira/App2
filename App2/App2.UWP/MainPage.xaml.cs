@@ -12,16 +12,49 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.WindowsAzure.MobileServices;
+using System.Threading.Tasks;
+using App2.Services;
 
 namespace App2.UWP
 {
-    public sealed partial class MainPage
+    public sealed partial class MainPage : IAuthenticationService
     {
         public MainPage()
         {
             this.InitializeComponent();
-
+            App2.App.InitializeAuthentication((IAuthenticationService)this);
             LoadApplication(new App2.App());
+        }
+
+        MobileServiceUser user = null;
+
+        public async Task<bool> SignInAsync()
+        {
+            bool successful = false;
+
+            try
+            {
+                user = await TelemetryManager.DefaultManager.CurrentClient.LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+                successful = user != null;
+            }
+            catch { }
+
+            return successful;
+        }
+
+        public async Task<bool> SignOutAsync()
+        {
+            bool isSuccessful = false;
+
+            try
+            {
+                await TelemetryManager.DefaultManager.CurrentClient.LogoutAsync();
+                isSuccessful = true;
+            }
+            catch { }
+
+            return isSuccessful;
         }
     }
 }
