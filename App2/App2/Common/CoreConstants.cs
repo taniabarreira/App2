@@ -17,4 +17,9 @@ namespace App2.Common
         public const double StartingFuel = 1000.0;
         public const double StartingThrust = 0.0;
     }
+    public static class MobileCenterConstants
+    {
+        public const string AndroidAppId = "76d87967-1ad3-4990-82be-ab8055ab9b1b";
+        public const string iOSAppId = "";
+    }
 }
